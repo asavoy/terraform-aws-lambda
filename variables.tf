@@ -8,6 +8,12 @@ variable "handler" {
   type        = "string"
 }
 
+variable "build_script" {
+  description = "The path to the script which will compile a zip of the lambda function"
+  type        = "string"
+  default     = ""
+}
+
 variable "memory_size" {
   description = "Amount of memory in MB your Lambda function can use at runtime"
   type        = "string"
