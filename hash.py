@@ -104,13 +104,15 @@ def update_hash(hash_obj, file_root, file_path):
     relative_path = os.path.relpath(file_path, file_root)
     hash_obj.update(relative_path.encode())
 
-    with open(file_path, 'rb') as open_file:
-        while True:
-            data = open_file.read(1024)
-            if not data:
-                break
-            hash_obj.update(data)
-
+    try:
+        with open(file_path, 'rb') as open_file:
+            while True:
+                data = open_file.read(1024)
+                if not data:
+                    break
+                hash_obj.update(data)
+    except Exception:
+        pass
 
 
 current_dir = os.path.dirname(__file__)
