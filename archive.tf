@@ -4,20 +4,20 @@ data "external" "archive" {
   program = ["${path.module}/hash.py"]
 
   query = {
-    runtime      = "${var.runtime}"
-    source_path  = "${var.source_path}"
-    build_script = "${coalesce(var.build_script, "${path.module}/build.py")}"
+    runtime      = var.runtime
+    source_path  = var.source_path
+    build_script = coalesce(var.build_script, "${path.module}/build.py")
   }
 }
 
 # Build the zip archive whenever the filename changes.
 resource "null_resource" "archive" {
-  triggers {
-    filename = "${lookup(data.external.archive.result, "filename")}"
+  triggers = {
+    filename = data.external.archive.result["filename"]
   }
 
   provisioner "local-exec" {
-    command = "${lookup(data.external.archive.result, "build_command")}"
+    command = data.external.archive.result["build_command"]
   }
 }
 
@@ -30,8 +30,8 @@ data "external" "built" {
   program = ["${path.module}/built.py"]
 
   query = {
-    build_command = "${lookup(data.external.archive.result, "build_command")}"
-    filename_old  = "${lookup(null_resource.archive.triggers, "filename")}"
-    filename_new  = "${lookup(data.external.archive.result, "filename")}"
+    build_command = data.external.archive.result["build_command"]
+    filename_old  = null_resource.archive.triggers["filename"]
+    filename_new  = data.external.archive.result["filename"]
   }
 }
