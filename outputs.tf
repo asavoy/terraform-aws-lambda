@@ -8,6 +8,11 @@ output "function_invoke_arn" {
   value       = "${element(concat(aws_lambda_function.lambda.*.invoke_arn, aws_lambda_function.lambda_with_dl.*.invoke_arn, aws_lambda_function.lambda_with_vpc.*.invoke_arn, aws_lambda_function.lambda_with_dl_and_vpc.*.invoke_arn), 0)}"
 }
 
+output "function_invoke_arn" {
+  description = "The Invoke ARN of the Lambda function"
+  value       = "${element(concat(aws_lambda_function.lambda.*.invoke_arn, aws_lambda_function.lambda_with_dl.*.invoke_arn, aws_lambda_function.lambda_with_vpc.*.invoke_arn, aws_lambda_function.lambda_with_dl_and_vpc.*.invoke_arn), 0)}"
+}
+
 output "function_name" {
   description = "The name of the Lambda function"
   value       = "${element(concat(aws_lambda_function.lambda.*.function_name, aws_lambda_function.lambda_with_dl.*.function_name, aws_lambda_function.lambda_with_vpc.*.function_name, aws_lambda_function.lambda_with_dl_and_vpc.*.function_name), 0)}"
