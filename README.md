@@ -32,7 +32,9 @@ module "lambda" {
   source_path = "${path.module}/lambda.py"
 
   // Attach a policy.
-  policy = data.aws_iam_policy_document.lambda.json
+  policy = {
+    json = data.aws_iam_policy_document.lambda.json
+  }
 
   // Add a dead letter queue.
   dead_letter_config {
@@ -64,7 +66,7 @@ Inputs for this module are the same as the [aws_lambda_function](https://www.ter
 | **source\_path** | The absolute path to a local file or directory containing your Lambda source code | string | | yes |
 | build\_script | The path to the script which will compile a zip of the lambda function | string | `"build.py"` | no |
 | cloudwatch\_logs | Set this to false to disable logging your Lambda output to CloudWatch Logs | bool | true | no |
-| policy | An addional policy to attach to the Lambda function | string | | no |
+| policy | An additional policy to attach to the Lambda function role | object({json=string}) | | no |
 
 The following arguments from the [aws_lambda_function](https://www.terraform.io/docs/providers/aws/r/lambda_function.html) resource are not supported:
 

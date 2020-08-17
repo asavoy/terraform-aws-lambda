@@ -96,9 +96,11 @@ variable "tags" {
 }
 
 variable "policy" {
-  description = "An addional policy to attach to the Lambda function"
-  type        = string
-  default     = null
+  description = "An additional policy to attach to the Lambda function role"
+  type = object({
+    json = string
+  })
+  default = null
 }
 
 variable "cloudwatch_logs" {
