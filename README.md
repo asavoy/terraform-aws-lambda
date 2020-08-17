@@ -67,6 +67,7 @@ Inputs for this module are the same as the [aws_lambda_function](https://www.ter
 | build\_script | The path to the script which will compile a zip of the lambda function | string | `"build.py"` | no |
 | cloudwatch\_logs | Set this to false to disable logging your Lambda output to CloudWatch Logs | bool | true | no |
 | policy | An additional policy to attach to the Lambda function role | object({json=string}) | | no |
+| trusted\_entities | Additional trusted entities for the Lambda function. The lambda.amazonaws.com (and edgelambda.amazonaws.com if lambda\_at\_edge is true) is always set  | `list(string)` | | no |
 
 The following arguments from the [aws_lambda_function](https://www.terraform.io/docs/providers/aws/r/lambda_function.html) resource are not supported:
 
