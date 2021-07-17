@@ -7,7 +7,7 @@ data "aws_iam_policy_document" "assume_role" {
 
     principals {
       type        = "Service"
-      identifiers = concat(list("lambda.amazonaws.com"), var.trusted_entities)
+      identifiers = concat(["lambda.amazonaws.com"], var.trusted_entities)
     }
   }
 }
